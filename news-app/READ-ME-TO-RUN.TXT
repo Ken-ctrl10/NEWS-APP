@@ -1,0 +1,155 @@
+This project is a News App with:
+
+Frontend: React (Vite) inside /client
+Backend/API Proxy: Vercel Serverless Functions inside /api
+
+The backend proxy is used to call the News API securely (no API key exposed in the browser) and to avoid CORS issues.
+
+1) Prerequisites
+Install the following:
+
+Node.js (recommended: Node 18+)
+npm (comes with Node)
+Vercel CLI (global install)
+
+Install Vercel CLI
+
+npm install -g vercel
+
+
+------------------------------------------------------------------
+2) Clone & Install Dependencies
+Clone the repo
+
+
+git clone <YOUR_REPO_URL>
+cd news-app
+
+
+Install root dependencies (if applicable)
+If there is a package.json in the project root, run:
+
+npm install
+
+Install frontend dependencies:
+
+cd client
+npm install
+cd ..
+
+
+3) Environment Variables
+A) Backend env (Serverless Functions) — root folder
+Create news-app/.env.local (same level as api/, client/, vercel.json):
+
+
+NEWSAPI_KEY=YOUR_NEWSAPI_KEY_HERE
+NEWSAPI_BASE_URL=https://newsapi.org/v2
+
+Notes:
+NEWSAPI_KEY is required for serverless functions.
+
+B) Frontend env (Vite) — client folder
+Create news-app/client/.env.local:
+VITE_API_BASE_URL=http://localhost:3001/api
+
+4) Run Locally (2 Terminals)
+You must run two terminals:
+Terminal 1 — Start Vercel serverless API (Port 3001)
+From the project root:
+
+vercel dev --listen 3001 --debug
+
+This serves endpoints like:
+
+http://localhost:3001/api/news/health
+http://localhost:3001/api/news/top-headlines
+http://localhost:3001/api/news/search
+
+Terminal 2 — Start the React frontend (Port 5173)
+In a second terminal:
+
+
+cd client
+npm run dev
+
+Open the UI:
+
+http://localhost:5173
+
+5) Quick API Tests (Optional)
+Once vercel dev is running, you can test in your browser:
+Health check
+
+http://localhost:3001/api/news/health
+
+
+Top headlines (example)
+http://localhost:3001/api/news/top-headlines?country=us&page=1&pageSize=12
+
+Search (example)
+http://localhost:3001/api/news/search?q=technology&page=1&pageSize=12
+
+6) Common Troubleshooting
+A) 401 Unauthorized / missing key
+
+Ensure news-app/.env.local exists and contains:
+
+NEWSAPI_KEY=...
+
+
+Restart vercel dev after editing env files.
+
+B) Frontend shows empty data / API not reachable
+
+Ensure Vercel dev is running on 3001
+Ensure client/.env.local contains:
+
+VITE_API_BASE_URL=http://localhost:3001/api
+
+
+Restart the Vite dev server after changing env values.
+
+
+C) totalResults: 0 for some countries
+This can happen depending on available headlines and filters.
+Try switching to:
+
+country=us
+or using the search endpoint with q=...
+
+
+D) Corporate network / TLS issues (only if needed)
+If you encounter TLS/certificate errors on a corporate network, you can temporarily run:
+PowerShell:
+
+$env:NODE_TLS_REJECT_UNAUTHORIZED="0"
+vercel dev --listen 3001 --debug
+
+Use only for local debugging. This disables TLS verification.
+
+7) Project Structure (High Level)
+news-app/
+  api/
+    _lib/
+      newsapi.js
+      response.js
+    news/
+      top-headlines.js
+      search.js
+      health.js
+  client/
+    src/
+      components/
+      pages/
+      services/
+      styles/
+    vite.config.js
+  vercel.json
+  .env.local               (backend env - not committed)
+  client/.env.local        (frontend env - not committed)
+
+  8) Notes for Teammates
+
+Do not commit .env.local files.
+If there is an .env.example, copy it to .env.local and fill in values.

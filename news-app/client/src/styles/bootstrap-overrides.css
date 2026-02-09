@@ -1,0 +1,64 @@
+.btn-accent {
+  background: var(--accent);
+  color: #222831;
+  border: none;
+  font-weight: 600;
+}
+
+.btn-accent:hover {
+  filter: brightness(0.95);
+}
+
+.navbar-dark-custom {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.form-control, .form-select {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+
+.form-control:focus, .form-select:focus {
+  box-shadow: none;
+  border-color: rgba(255, 211, 105, 0.55);
+}
+
+.alert {
+  border: 1px solid var(--border);
+}
+
+.modal-content.card-surface {
+  border: 1px solid var(--border);
+}
+
+.btn-close-white {
+  filter: invert(1);
+}
+
+/* Make native selects render in dark mode (browser-level) */
+.form-select,
+.form-control {
+  color-scheme: dark;
+}
+
+/* Keep your dark input look */
+.form-control,
+.form-select {
+  background-color: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+
+/* ✅ Important: style dropdown options (works in most browsers like Chrome/Edge) */
+.form-select option {
+  background-color: var(--surface);
+  color: var(--text);
+}
+
+/* Optional: improve selected/hovered feel */
+.form-select option:checked {
+  background-color: var(--accent);
+  color: #222831;
+}

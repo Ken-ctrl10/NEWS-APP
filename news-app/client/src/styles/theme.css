@@ -1,0 +1,29 @@
+:root{
+  --bg: #222831;
+  --surface: #393E46;
+  --accent: #FFD369;
+  --text: #EEEEEE;
+
+  --border: rgba(255, 255, 255, 0.08);
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+a {
+  color: var(--accent);
+}
+
+.card-surface {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.placeholder-img {
+  height: 180px;
+  background: rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid var(--border);
+}

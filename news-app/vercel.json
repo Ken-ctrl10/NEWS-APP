@@ -1,0 +1,11 @@
+
+{
+  "framework": "vite",
+  "buildCommand": "cd client && npm install && npm run build",
+  "devCommand": "cd client && npm run dev -- --port $PORT --host 0.0.0.0",
+  "outputDirectory": "client/dist",
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/$1" },
+    { "source": "/(.*)", "destination": "/" }
+  ]
+}
